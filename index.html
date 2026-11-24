@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet Deore</title>
+<meta name="description" content="Meet Deore: founder of Deni Bikes, hardware builder, Mesa School of Business UG 2030.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F5EF; --bg-2:#EDEBE2; --card:#FFFFFF; --ink:#16141D; --muted:#5E5B68; --line:rgba(22,20,29,.14);
+  --volt:#C8F53A; --volt-ink:#16141D; --accent:#5B3DF5; --accent-soft:rgba(91,61,245,.10); --hot:#FF5A2E;
+  --shadow:#16141D; --glow:rgba(91,61,245,.18);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Manrope",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --fast:.14s; --med:.18s;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D0C12; --bg-2:#15131C; --card:#18161F; --ink:#F1F0EA; --muted:#A3A0AE; --line:rgba(241,240,234,.12);
+    --accent:#9B88FF; --accent-soft:rgba(155,136,255,.13); --hot:#FF7A55; --shadow:#5A4BB0; --glow:rgba(200,245,58,.12);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D0C12; --bg-2:#15131C; --card:#18161F; --ink:#F1F0EA; --muted:#A3A0AE; --line:rgba(241,240,234,.12);
+  --accent:#9B88FF; --accent-soft:rgba(155,136,255,.13); --hot:#FF7A55; --shadow:#5A4BB0; --glow:rgba(200,245,58,.12);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.6 var(--body);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;transition:background-color var(--med) var(--ease),color var(--med) var(--ease)}
+a{color:inherit}
+::selection{background:var(--volt);color:var(--volt-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+.mono{font-family:var(--mono);letter-spacing:-.01em}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px;
+  mask-image:linear-gradient(to bottom,#000 0,transparent 70vh)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:12px;z-index:50;margin-top:12px}
+.nav-in{display:flex;align-items:center;gap:8px;padding:6px;border:1.5px solid var(--ink);border-radius:999px;
+  background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:3px 3px 0 var(--shadow)}
+.logo{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;background:var(--ink);color:var(--bg);
+  font:800 14px var(--display);text-decoration:none;letter-spacing:-.02em}
+.links{position:relative;display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{position:relative;z-index:1;padding:7px 12px;border-radius:999px;text-decoration:none;font:600 14px var(--body);
+  color:var(--muted);white-space:nowrap;transition:color var(--fast) var(--ease)}
+.links a:hover,.links a.on{color:var(--ink)}
+.thumb{position:absolute;z-index:0;top:0;bottom:0;border-radius:999px;background:var(--volt);opacity:0;
+  transition:left var(--med) var(--ease),width var(--med) var(--ease),opacity var(--fast)}
+.links a.on{color:var(--volt-ink)}
+.batt{display:flex;align-items:center;gap:6px;flex:none;padding-right:4px}
+.batt-body{position:relative;width:30px;height:15px;border:1.5px solid var(--ink);border-radius:4px;padding:1.5px}
+.batt-body::after{content:"";position:absolute;right:-4.5px;top:4px;width:3px;height:5px;border-radius:0 2px 2px 0;background:var(--ink)}
+.batt-fill{height:100%;width:0;border-radius:2px;background:var(--volt);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.batt-pct{font:700 11px var(--mono);width:3.2ch;text-align:right;color:var(--muted)}
+.theme{flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);
+  cursor:pointer;display:grid;place-items:center;transition:transform var(--fast) var(--ease)}
+.theme:hover{transform:rotate(-12deg)}
+.theme:active{transform:scale(.94)}
+.theme svg{width:18px;height:18px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:1;padding:clamp(48px,10vw,110px) 0 56px}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1.5px solid var(--ink);border-radius:999px;
+  background:var(--card);font:600 13px var(--body)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 0 var(--hot);animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--hot) 60%,transparent)}70%,100%{box-shadow:0 0 0 8px transparent}}
+h1{font:800 clamp(56px,13vw,168px)/.88 var(--display);letter-spacing:-.045em;margin:22px 0 18px}
+h1 .l{display:inline-block;transition:transform var(--fast) var(--ease),color var(--fast)}
+h1 .l:hover{transform:translateY(-6px) rotate(-3deg);color:var(--accent)}
+h1 .hl{position:relative;white-space:nowrap}
+h1 .hl::after{content:"";position:absolute;left:-.04em;right:-.04em;bottom:.08em;height:.24em;background:var(--volt);z-index:-1;border-radius:.06em}
+.lede{font:500 clamp(18px,2.4vw,24px)/1.45 var(--body);max-width:30ch;margin:0;color:var(--muted)}
+.lede b{color:var(--ink);font-weight:700}
+.hero-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1.5px solid var(--ink);
+  font:700 15px var(--body);text-decoration:none;cursor:pointer;background:var(--card);color:var(--ink);
+  box-shadow:3px 3px 0 var(--shadow);transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--shadow)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--shadow)}
+.btn.pri{background:var(--volt);color:var(--volt-ink)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:56px}
+.stat{padding:18px;border:1.5px solid var(--line);border-radius:20px;background:var(--card)}
+.stat .n{font:800 clamp(28px,4vw,42px)/1 var(--display);letter-spacing:-.03em}
+.stat .k{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.4}
+.marquee{margin-top:56px;border-block:1.5px solid var(--ink);background:#16141D;color:#F1F0EA;overflow:hidden;position:relative;z-index:1}
+.track{display:flex;gap:40px;width:max-content;padding:12px 0;animation:mq 38s linear infinite;font:700 15px var(--mono);text-transform:uppercase}
+.track span{display:flex;align-items:center;gap:40px}
+.track span::after{content:"⚡";color:var(--volt)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.marquee:hover .track{animation-play-state:paused}
+
+/* ---------- sections ---------- */
+section{position:relative;z-index:1;padding:96px 0 0;scroll-margin-top:72px}
+.eyebrow{font:700 13px var(--mono);text-transform:uppercase;color:var(--accent);letter-spacing:.06em}
+h2{font:800 clamp(36px,6vw,64px)/.95 var(--display);letter-spacing:-.035em;margin:10px 0 14px}
+.sub{color:var(--muted);max-width:56ch;margin:0 0 36px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(14px) scale(.98);transition:opacity .32s var(--ease),transform .32s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- builds ---------- */
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.card{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;grid-column:span 2;display:flex;flex-direction:column;
+  padding:22px;border:1.5px solid var(--ink);border-radius:24px;background:var(--card);box-shadow:4px 4px 0 var(--shadow);
+  transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;
+  transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease)}
+.card.rv{opacity:0;transform:perspective(900px) translateY(14px) scale(.98)}
+.card.rv.in{opacity:1;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry))}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
+  background:radial-gradient(360px circle at var(--mx) var(--my),var(--glow),transparent 60%);transition:opacity var(--fast)}
+.card:hover{box-shadow:7px 7px 0 var(--shadow)}
+.card:hover::before{opacity:1}
+.card.wide{grid-column:span 4}
+.card.half{grid-column:span 3}
+.card.dim{opacity:.32!important;filter:saturate(.3)}
+.card.lit{box-shadow:4px 4px 0 var(--accent);border-color:var(--accent)}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.yr{font:700 12px var(--mono);padding:4px 9px;border-radius:999px;background:var(--bg-2);color:var(--muted)}
+.kind{font:700 12px var(--mono);color:var(--accent);text-transform:uppercase}
+.card h3{font:800 clamp(22px,2.6vw,30px)/1.05 var(--display);letter-spacing:-.025em;margin:0 0 10px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card p b{color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{font:600 12px var(--mono);padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.more{margin-top:auto;padding-top:16px}
+.more button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font:700 14px var(--body);color:var(--ink);
+  border-bottom:1.5px solid var(--ink);padding-bottom:1px}
+.more button svg{width:14px;height:14px;transition:transform var(--fast) var(--ease)}
+.more button[aria-expanded="true"] svg{transform:rotate(45deg)}
+.det{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--med) var(--ease)}
+.det>div{overflow:hidden}
+.det.open{grid-template-rows:1fr}
+.det ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.det li{position:relative;padding-left:18px;font-size:14.5px;color:var(--muted)}
+.det li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--volt);border:1px solid var(--ink)}
+.det li b{color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.kpi{padding:12px;border-radius:14px;background:var(--bg-2)}
+.kpi .n{font:800 24px/1 var(--display);letter-spacing:-.02em}
+.kpi .k{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.35}
+.calib{margin-top:16px;padding:14px;border-radius:16px;border:1.5px dashed var(--line)}
+.calib-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 12px var(--mono);color:var(--muted)}
+.calib-bar{position:relative;height:12px;border-radius:999px;background:var(--bg-2);margin:10px 0;overflow:hidden}
+.calib-fill{position:absolute;inset:0 auto 0 0;width:85%;border-radius:inherit;background:var(--hot);transition:width .18s var(--ease),background-color .18s}
+.calib.done .calib-fill{width:20%;background:var(--volt)}
+.calib button{font:700 12px var(--mono);padding:5px 10px;border-radius:999px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;
+  transition:transform var(--fast) var(--ease)}
+.calib button:active{transform:scale(.95)}
+
+/* EV compare */
+.ev{--on:#F1F0EA;margin-top:18px;padding:26px;border:1.5px solid var(--ink);border-radius:24px;background:#16141D;color:var(--on);box-shadow:4px 4px 0 var(--accent)}
+.ev-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px}
+.ev h3{font:800 clamp(24px,3vw,34px)/1 var(--display);letter-spacing:-.03em;margin:6px 0 0}
+.ev .eyebrow{color:var(--volt)}
+.seg{position:relative;display:inline-flex;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--on) 14%,transparent)}
+.seg button{all:unset;position:relative;z-index:1;cursor:pointer;padding:8px 14px;border-radius:999px;font:700 13px var(--body);color:color-mix(in srgb,var(--on) 70%,transparent);transition:color var(--fast)}
+.seg button[aria-pressed="true"]{color:var(--volt-ink)}
+.seg-thumb{position:absolute;top:4px;bottom:4px;border-radius:999px;background:var(--volt);transition:left var(--med) var(--ease),width var(--med) var(--ease)}
+.bars{display:grid;gap:14px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 92px;align-items:center;gap:14px;font-size:14px}
+.bar-row .lab{color:color-mix(in srgb,var(--on) 65%,transparent);font-weight:600}
+.bar-track{height:14px;border-radius:999px;background:color-mix(in srgb,var(--on) 12%,transparent);overflow:hidden}
+.bar-fill{height:100%;border-radius:inherit;background:var(--volt);transition:width .2s var(--ease)}
+.bar-row .val{font:700 14px var(--mono);text-align:right}
+.ev-foot{margin-top:18px;font-size:13px;color:color-mix(in srgb,var(--on) 60%,transparent)}
+
+.other{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.o-card{padding:22px;border-radius:24px;border:1.5px solid var(--line);background:var(--card)}
+.o-card h4{margin:0 0 12px;font:800 18px var(--display);letter-spacing:-.02em}
+.o-list{display:flex;flex-wrap:wrap;gap:8px}
+.o-list span{padding:7px 12px;border-radius:12px;background:var(--bg-2);font-size:14px;font-weight:600;transition:transform var(--fast) var(--ease),background-color var(--fast)}
+.o-list span:hover{transform:translateY(-2px);background:var(--accent-soft)}
+
+/* ---------- journey ---------- */
+.tl{position:relative;margin:0;padding:0;list-style:none}
+.tl::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl-prog{position:absolute;left:19px;top:8px;width:2px;height:0;background:var(--accent);border-radius:2px}
+.tl li{position:relative;padding:0 0 30px 60px}
+.tl .node{position:absolute;left:8px;top:2px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:var(--bg);
+  display:grid;place-items:center;transition:border-color var(--med),background-color var(--med)}
+.tl .node::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--line);transition:background-color var(--med)}
+.tl li.in .node{border-color:var(--accent)}
+.tl li.in .node::after{background:var(--accent)}
+.tl .when{font:700 13px var(--mono);color:var(--accent)}
+.tl h3{margin:4px 0 4px;font:800 clamp(20px,2.4vw,26px)/1.15 var(--display);letter-spacing:-.02em}
+.tl .where{font-size:14px;color:var(--muted);font-weight:600}
+.tl p{margin:8px 0 0;color:var(--muted);max-width:62ch;font-size:15px}
+.tl .badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:var(--volt);color:var(--volt-ink);font:700 11px var(--mono);vertical-align:middle}
+
+/* ---------- skills ---------- */
+.sk{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
+.sk-panel{padding:24px;border:1.5px solid var(--ink);border-radius:24px;background:var(--card);box-shadow:4px 4px 0 var(--shadow)}
+.sk-group+.sk-group{margin-top:20px}
+.sk-group h4{margin:0 0 10px;font:700 12px var(--mono);text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
+.sk-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sk-chip{all:unset;cursor:pointer;padding:9px 14px;border-radius:999px;border:1.5px solid var(--ink);font:700 14px var(--body);background:var(--bg);color:var(--ink);
+  transition:transform var(--fast) var(--ease),background-color var(--fast),box-shadow var(--fast)}
+.sk-chip:hover{transform:translateY(-2px);box-shadow:2px 2px 0 var(--shadow)}
+.sk-chip:active{transform:scale(.96)}
+.sk-chip[aria-pressed="true"]{background:var(--volt);color:var(--volt-ink);box-shadow:2px 2px 0 var(--shadow)}
+.sk-chip:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.sk-out{position:sticky;top:96px;padding:24px;border-radius:24px;background:var(--accent);color:#fff;min-height:240px}
+:root[data-theme="dark"] .sk-out{color:#0D0C12}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sk-out{color:#0D0C12}}
+.sk-out .eyebrow{color:inherit;opacity:.75}
+.sk-out h3{font:800 clamp(26px,3vw,36px)/1.05 var(--display);letter-spacing:-.03em;margin:8px 0 14px}
+.sk-out ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.sk-out li{padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.16);font-weight:600;font-size:15px}
+.sk-out .hint{opacity:.8;font-size:15px;margin:0}
+.sk-swap{transition:opacity .12s var(--ease),transform .12s var(--ease)}
+.sk-swap.out{opacity:0;transform:translateY(4px)}
+.cert{margin-top:20px;padding:14px 16px;border-radius:16px;border:1.5px dashed var(--line);display:flex;gap:12px;align-items:center;font-size:14.5px}
+.cert .pg{flex:none;width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--accent) 0 50%,var(--bg-2) 0);display:grid;place-items:center}
+.cert .pg::after{content:"";width:32px;height:32px;border-radius:50%;background:var(--card)}
+.cert b{display:block}
+.cert span{color:var(--muted)}
+
+/* ---------- awards ---------- */
+.aw{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.aw-card{position:relative;overflow:hidden;padding:28px;border-radius:24px;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--shadow);
+  transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease)}
+.aw-card:hover{transform:translate(-2px,-2px) rotate(-.4deg);box-shadow:7px 7px 0 var(--shadow)}
+.aw-big{font:800 clamp(60px,9vw,104px)/.85 var(--display);letter-spacing:-.05em}
+.aw-card:nth-child(1) .aw-big{color:var(--accent)}
+.aw-card:nth-child(2) .aw-big{color:var(--hot)}
+.aw-card h3{margin:16px 0 6px;font:800 22px/1.15 var(--display);letter-spacing:-.02em}
+.aw-card p{margin:0;color:var(--muted);font-size:15px}
+
+/* ---------- contact ---------- */
+.contact{margin:96px 0 0;padding:clamp(32px,6vw,64px);border-radius:32px;background:var(--volt);color:var(--volt-ink);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--shadow);position:relative;overflow:hidden}
+.contact .eyebrow{color:var(--volt-ink);opacity:.7}
+.contact h2{font-size:clamp(40px,8vw,96px);margin-bottom:24px}
+.mail{display:inline-block;max-width:100%;font:800 clamp(20px,4vw,40px)/1.1 var(--display);letter-spacing:-.02em;color:var(--volt-ink);text-decoration:none;
+  border-bottom:3px solid var(--volt-ink);overflow-wrap:anywhere;transition:opacity var(--fast)}
+.mail:hover{opacity:.7}
+.c-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.contact .btn{border-color:var(--volt-ink);box-shadow:3px 3px 0 var(--volt-ink);background:#fff;color:#16141D}
+.contact .btn:hover{box-shadow:5px 5px 0 var(--volt-ink)}
+.contact .btn.dark{background:#16141D;color:var(--volt)}
+.btn svg{width:18px;height:18px}
+footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;color:var(--muted);font-size:13px;position:relative;z-index:1}
+.toast{position:fixed;left:50%;bottom:24px;z-index:99;padding:10px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font:700 14px var(--body);
+  opacity:0;transform:translate(-50%,8px) scale(.95);pointer-events:none;transition:opacity var(--fast) var(--ease),transform var(--fast) var(--ease)}
+.toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr 1fr}
+  .card,.card.half{grid-column:span 1}
+  .card.wide{grid-column:span 2}
+  .sk{grid-template-columns:1fr}
+  .sk-out{position:relative;top:0;min-height:0}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .grid,.other,.aw{grid-template-columns:1fr}
+  .card,.card.wide,.card.half{grid-column:span 1}
+  .kpis{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .kpi{padding:10px}
+  .kpi .n{font-size:20px}
+  .bar-row{grid-template-columns:76px 1fr 70px;gap:10px;font-size:13px}
+  .bar-row .val{font-size:12px}
+  .ev{padding:20px}
+  .links a{padding:7px 9px;font-size:13px}
+  .batt-pct{display:none}
+  .tl li{padding-left:48px}
+  section{padding-top:72px}
+  .hero{padding-bottom:40px}
+}
+@media (max-width:380px){ .batt{display:none} }
+@media (hover:none){ .card{transform:none!important} }
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .rv,.card.rv{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="wrap nav">
+  <nav class="nav-in" aria-label="Sections">
+    <a class="logo" href="#top" aria-label="Back to top">MD</a>
+    <div class="links" id="links">
+      <span class="thumb" id="thumb" aria-hidden="true"></span>
+      <a href="#builds">Builds</a>
+      <a href="#journey">Journey</a>
+      <a href="#skills">Skills</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="batt" title="Page charge: how far you've scrolled" aria-hidden="true">
+      <div class="batt-body"><div class="batt-fill" id="battFill"></div></div>
+      <span class="batt-pct" id="battPct">0%</span>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Switch colour theme">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+    </button>
+  </nav>
+</div>
+
+<main id="top">
+  <header class="wrap hero">
+    <span class="tag rv"><span class="dot"></span>Mesa School of Business · UG 2026–30</span>
+    <h1 class="rv" aria-label="Meet Deore"><span aria-hidden="true" id="name"></span></h1>
+    <p class="lede rv">Built an <b>electric motorcycle from scratch at 16</b>, pitched it on <b>Shark Tank India Season 4</b>, and now builds battery tech in Mesa's Idea Sprint Lab.</p>
+    <div class="hero-row rv">
+      <a class="btn pri" href="#builds">See the builds
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><div class="n"><span data-count="16">0</span></div><div class="k">age when he built the Deni Bikes e-motorcycle</div></div>
+      <div class="stat rv"><div class="n">±<span data-count="2">0</span>%</div><div class="k">current-sensing error, down from 8.5%</div></div>
+      <div class="stat rv"><div class="n">Top <span data-count="3">0</span></div><div class="k">Made in 3D: Seed the Future Entrepreneurs, 2022</div></div>
+      <div class="stat rv"><div class="n"><span data-count="4">0</span> wks</div><div class="k">from first learning BMS to a fully assembled monitor</div></div>
+    </div>
+  </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track" id="track"></div>
+  </div>
+
+  <!-- BUILDS -->
+  <section id="builds" class="wrap">
+    <div class="eyebrow rv">01 · Builds</div>
+    <h2 class="rv">Things he's made</h2>
+    <p class="sub rv">Hardware, software and a startup. Open any card for the details. Pick a skill further down to see where it was used.</p>
+
+    <div class="grid" id="grid">
+      <article class="card wide rv" data-tags="ESP32-S3|EV and battery prototyping|Sensor calibration|State estimation">
+        <div class="c-top"><span class="kind">Project · Bengaluru</span><span class="yr">2026</span></div>
+        <h3>Smart Battery Monitor with EKF SOC Estimation</h3>
+        <p>A <b>read-only battery monitor on an ESP32-S3</b> that runs beside an existing BMS, logging four LFP cell voltages, pack current and two temperatures over its own WiFi network.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="n">4</div><div class="k">LFP cell voltages logged</div></div>
+          <div class="kpi"><div class="n">±2%</div><div class="k">current error after calibration</div></div>
+          <div class="kpi"><div class="n">4 wks</div><div class="k">to fully assembled</div></div>
+        </div>
+        <div class="calib" id="calib">
+          <div class="calib-row"><span>Current-sensing error</span><button type="button" id="calibBtn">Calibrate</button></div>
+          <div class="calib-bar"><div class="calib-fill"></div></div>
+          <div class="calib-row"><span id="calibTxt">8.5% vs multimeter</span><span>target ±2%</span></div>
+        </div>
+        <div class="det" id="d1"><div><ul>
+          <li>Implemented an <b>Extended Kalman Filter SOC estimator</b> with an equivalent circuit model, validated on the <b>CALCE public battery dataset</b>.</li>
+          <li>Took current sensing from <b>8.5% error to within ±2%</b> against a multimeter, after diagnosing a median filter that misread pulsed current and an ADC pin shared with WiFi.</li>
+          <li>Found that LFP's <b>flat mid-range voltage curve</b> gives little signal for voltage-based correction, so the EKF relies on current integration there, which makes current calibration critical.</li>
+          <li>Now <b>characterising the pack</b> (capacity, OCV–SOC curve, internal resistance) and building an <b>AI layer</b> to predict and plot further battery metrics from the same inputs.</li>
+        </ul></div></div>
+        <div class="more"><button type="button" aria-expanded="false" aria-controls="d1">How it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+      </article>
+
+      <article class="card rv" data-tags="EV and battery prototyping|Market research|Investor pitching">
+        <div class="c-top"><span class="kind">Founder · Pune</span><span class="yr">2024</span></div>
+        <h3>Deni Bikes</h3>
+        <p>Designed and built an <b>electric motorcycle prototype from scratch at 16</b>, then pitched it on <b>Shark Tank India Season 4</b>.</p>
+        <div class="det" id="d2"><div><ul>
+          <li><b>48 V 1 kW motor</b> and <b>48 V 20 Ah battery</b>, built for ₹40,000.</li>
+          <li>Ran <b>market research</b> on demand for affordable electric mobility in India.</li>
+          <li>The Sharks appreciated the product and advised completing education before scaling.</li>
+        </ul></div></div>
+        <div class="more"><button type="button" aria-expanded="false" aria-controls="d2">The story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+      </article>
+
+      <article class="card half rv" data-tags="Raspberry Pi|OpenCV|OpenAI API">
+        <div class="c-top"><span class="kind">Project · Pune</span></div>
+        <h3>AI Robot Teacher</h3>
+        <p>A <b>Raspberry Pi</b> robot prototype that generates teaching material with the <b>OpenAI API</b> and scans students' handwritten work with <b>OpenCV</b>.</p>
+        <div class="chips"><span class="chip">Raspberry Pi</span><span class="chip">OpenAI API</span><span class="chip">OpenCV</span></div>
+      </article>
+
+      <article class="card half rv" data-tags="EV and battery prototyping">
+        <div class="c-top"><span class="kind">Project · Pune</span><span class="yr">2018</span></div>
+        <h3>Electric Go-Kart</h3>
+        <p>Independently designed and built a <b>fully working electric go-kart from scratch</b>, with a 24 V 250 W motor and a 24 V 10 Ah battery, for ₹20,000. Top speed <b>20 km/h</b>.</p>
+        <div class="chips"><span class="chip">24 V</span><span class="chip">250 W</span><span class="chip">20 km/h</span></div>
+      </article>
+
+      <article class="card half rv" data-tags="">
+        <div class="c-top"><span class="kind">National Technology Week · New Delhi</span><span class="yr">2023</span></div>
+        <h3>Rear-windshield display</h3>
+        <p>Co-developed and presented, with two teammates, a display that lets drivers signal situations such as a <b>medical emergency or a U-turn</b> to traffic behind.</p>
+      </article>
+
+      <article class="card half rv" data-tags="">
+        <div class="c-top"><span class="kind">Made in 3D · Top 3</span><span class="yr">2022</span></div>
+        <h3>Seed the Future Entrepreneurs</h3>
+        <p>Turned a community problem into a <b>3D-designed prototype and business plan</b> in La Fondation Dassault Systèmes' programme with Atal Innovation Mission (NITI Aayog).</p>
+      </article>
+    </div>
+
+    <div class="ev rv" id="ev">
+      <div class="ev-head">
+        <div><div class="eyebrow">Spec sheet</div><h3>Two electric vehicles, six years apart</h3></div>
+        <div class="seg" role="group" aria-label="Choose a vehicle">
+          <span class="seg-thumb" id="segThumb" aria-hidden="true"></span>
+          <button type="button" data-v="kart" aria-pressed="false">Go-Kart · 2018</button>
+          <button type="button" data-v="bike" aria-pressed="true">Deni Bikes · 2024</button>
+        </div>
+      </div>
+      <div class="bars" id="bars"></div>
+      <div class="ev-foot" id="evFoot"></div>
+    </div>
+
+    <div class="other">
+      <div class="o-card rv"><h4>Other builds · hardware + software</h4>
+        <div class="o-list"><span>Arduino all-terrain robot</span><span>Raspberry Pi computer-vision advertising kiosk</span><span>Arduino memory game</span><span>Servo + OLED interactive system</span></div></div>
+      <div class="o-card rv"><h4>Other builds · software &amp; automation</h4>
+        <div class="o-list"><span>LiftLeague, a competitive strength-training app</span><span>Invoice-extraction API</span><span>Clinic appointment automation with an AI voice receptionist</span></div></div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey" class="wrap">
+    <div class="eyebrow rv">02 · Journey</div>
+    <h2 class="rv">From Pune to Bengaluru</h2>
+    <p class="sub rv">School, builds, a startup and now business school.</p>
+    <ol class="tl" id="tl">
+      <span class="tl-prog" id="tlProg" aria-hidden="true"></span>
+      <li><span class="node"></span><div class="when">2013 – 2024</div><h3>The Orchid School</h3><div class="where">Pune</div>
+        <p>School years, alongside the builds below.</p></li>
+      <li><span class="node"></span><div class="when">2018</div><h3>Electric Go-Kart</h3><div class="where">Pune</div>
+        <p>A fully working electric go-kart, designed and built independently. 24 V, 250 W, 20 km/h.</p></li>
+      <li><span class="node"></span><div class="when">2022</div><h3>Made in 3D: Seed the Future Entrepreneurs <span class="badge">TOP 3</span></h3><div class="where">La Fondation Dassault Systèmes × Atal Innovation Mission (NITI Aayog)</div>
+        <p>A community problem turned into a 3D-designed prototype and business plan.</p></li>
+      <li><span class="node"></span><div class="when">2023</div><h3>National Technology Week</h3><div class="where">New Delhi</div>
+        <p>Co-developed and presented a rear-windshield signalling display with two teammates.</p></li>
+      <li><span class="node"></span><div class="when">2024</div><h3>Founder, Deni Bikes</h3><div class="where">Pune</div>
+        <p>Built an electric motorcycle prototype at 16, researched the market for affordable e-mobility and pitched on Shark Tank India Season 4.</p></li>
+      <li><span class="node"></span><div class="when">2025</div><h3>Invited Judge, YEB 2025</h3><div class="where">BITS Pilani Goa</div>
+        <p>Judged a student pitching competition.</p></li>
+      <li><span class="node"></span><div class="when">2026 – 2030</div><h3>Mesa School of Business</h3><div class="where">Bengaluru · UG Program in Business Management &amp; Entrepreneurship</div>
+        <p>Currently working in Mesa's Idea Sprint Lab (ILS), 2026. Building the Smart Battery Monitor.</p></li>
+    </ol>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="wrap">
+    <div class="eyebrow rv">03 · Toolkit</div>
+    <h2 class="rv">Pick a skill</h2>
+    <p class="sub rv">Tap any tool or skill to see where it shows up. The matching build cards light up too.</p>
+    <div class="sk">
+      <div class="sk-panel rv" id="skPanel">
+        <div class="sk-group"><h4>Hardware</h4><div class="sk-chips">
+          <button class="sk-chip" type="button">ESP32-S3</button><button class="sk-chip" type="button">Arduino</button><button class="sk-chip" type="button">Raspberry Pi</button></div></div>
+        <div class="sk-group"><h4>Code &amp; AI</h4><div class="sk-chips">
+          <button class="sk-chip" type="button">Python</button><button class="sk-chip" type="button">C++ (Arduino)</button><button class="sk-chip" type="button">OpenCV</button><button class="sk-chip" type="button">OpenAI API</button></div></div>
+        <div class="sk-group"><h4>No-code &amp; backend</h4><div class="sk-chips">
+          <button class="sk-chip" type="button">Make.com</button><button class="sk-chip" type="button">Vapi</button><button class="sk-chip" type="button">Lovable</button><button class="sk-chip" type="button">Supabase</button></div></div>
+        <div class="sk-group"><h4>Core skills</h4><div class="sk-chips">
+          <button class="sk-chip" type="button">EV and battery prototyping</button><button class="sk-chip" type="button">Sensor calibration</button><button class="sk-chip" type="button">State estimation</button><button class="sk-chip" type="button">Market research</button><button class="sk-chip" type="button">Investor pitching</button></div></div>
+        <div class="cert">
+          <div class="pg" aria-hidden="true"></div>
+          <div><b>Algorithms for Battery Management Systems</b><span>University of Colorado (Coursera) · in progress</span></div>
+        </div>
+      </div>
+      <div class="sk-out rv" aria-live="polite">
+        <div class="sk-swap" id="skSwap">
+          <div class="eyebrow">Where it's used</div>
+          <h3>Choose a skill</h3>
+          <p class="hint">Start with ESP32-S3 or Investor pitching.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards" class="wrap">
+    <div class="eyebrow rv">04 · Recognition</div>
+    <h2 class="rv">Awards &amp; recognition</h2>
+    <div class="aw" style="margin-top:28px">
+      <div class="aw-card rv"><div class="aw-big">Top 3</div>
+        <h3>Made in 3D: Seed the Future Entrepreneurs (2022)</h3>
+        <p>La Fondation Dassault Systèmes with Atal Innovation Mission (NITI Aayog).</p></div>
+      <div class="aw-card rv"><div class="aw-big">Judge</div>
+        <h3>Invited Judge, YEB 2025</h3>
+        <p>BITS Pilani Goa. Judged a student pitching competition.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="wrap">
+    <div class="contact rv">
+      <div class="eyebrow">05 · Contact</div>
+      <h2>Let's build<br>something.</h2>
+      <a class="mail" href="mailto:meet@ug30.mesaschool.co">meet@ug30.mesaschool.co</a>
+      <div class="c-row">
+        <a class="btn dark" href="mailto:meet@ug30.mesaschool.co">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email Meet</a>
+        <a class="btn" href="https://www.linkedin.com/in/meetdeore" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.55h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>LinkedIn</a>
+        <button class="btn" type="button" id="copy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy email</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© Meet Deore</span>
+  <span class="mono">Mesa School of Business · UG 2030</span>
+</footer>
+<div class="toast" id="toast" role="status">Email copied</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+
+  /* theme */
+  const icons = {
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>'
+  };
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  try { const t = localStorage.getItem('md-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  const paintIcon = () => { $('#themeIcon').innerHTML = isDark() ? icons.sun : icons.moon; };
+  paintIcon();
+  $('#theme').addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('md-theme', root.dataset.theme); } catch (e) {}
+    paintIcon();
+  });
+
+  /* name letters */
+  const nm = $('#name');
+  [['Meet'], ['Deore', true]].forEach(([w, hl], i) => {
+    const s = document.createElement('span'); if (hl) s.className = 'hl';
+    [...w].forEach(c => { const l = document.createElement('span'); l.className = 'l'; l.textContent = c; s.appendChild(l); });
+    nm.appendChild(s); if (!i) nm.appendChild(document.createTextNode(' '));
+  });
+
+  /* marquee */
+  const words = ['48 V · 1 kW', 'Shark Tank India S4', 'EKF SOC estimation', 'ESP32-S3', 'LFP cells', 'Raspberry Pi', 'OpenCV', 'Idea Sprint Lab', '24 V go-kart'];
+  const half = '<span>' + words.join('</span><span>') + '</span>';
+  $('#track').innerHTML = half + half;
+
+  /* reveals + counters */
+  const count = el => {
+    const to = +el.dataset.count;
+    if (reduce) { el.textContent = to; return; }
+    const t0 = performance.now(), d = 700;
+    const step = t => { const p = Math.min(1, (t - t0) / d); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const sibs = el.parentElement ? $$(':scope > .rv', el.parentElement) : [];
+    const idx = Math.max(0, sibs.indexOf(el));
+    setTimeout(() => el.classList.add('in'), reduce ? 0 : Math.min(idx, 5) * 50);
+    $$('[data-count]', el).forEach(count);
+    io.unobserve(el);
+  }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  $$('.rv').forEach(el => io.observe(el));
+
+  /* timeline nodes */
+  const tlo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { rootMargin: '0px 0px -45% 0px' });
+  $$('#tl li').forEach(li => tlo.observe(li));
+
+  /* scroll: battery, timeline progress, active nav */
+  const sections = $$('main section');
+  const navLinks = $$('#links a');
+  const thumb = $('#thumb');
+  let active = null;
+  const moveThumb = a => {
+    if (!a) { thumb.style.opacity = 0; return; }
+    thumb.style.opacity = 1; thumb.style.left = a.offsetLeft + 'px'; thumb.style.width = a.offsetWidth + 'px';
+  };
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const p = h > 0 ? Math.min(1, scrollY / h) : 0;
+    $('#battFill').style.width = (p * 100) + '%';
+    $('#battPct').textContent = Math.round(p * 100) + '%';
+    const tl = $('#tl'), r = tl.getBoundingClientRect();
+    const tp = Math.max(0, Math.min(1, (innerHeight * .55 - r.top) / (r.height - 16)));
+    $('#tlProg').style.height = (tp * (r.height - 16)) + 'px';
+    let cur = null;
+    sections.forEach(s => { if (s.getBoundingClientRect().top < innerHeight * .4) cur = s.id; });
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = 'contact';
+    if (cur !== active) {
+      active = cur;
+      navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+      const on = navLinks.find(a => a.classList.contains('on'));
+      moveThumb(on);
+      if (on) { const L = $('#links'); L.scrollTo({ left: on.offsetLeft - L.clientWidth / 2 + on.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' }); }
+    }
+  };
+  let ticking = false;
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { onScroll(); ticking = false; }); } }, { passive: true });
+  addEventListener('resize', () => { moveThumb(navLinks.find(a => a.classList.contains('on'))); onScroll(); });
+  onScroll();
+
+  /* tilt */
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  $$('.card').forEach(c => {
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty('--mx', x * 100 + '%'); c.style.setProperty('--my', y * 100 + '%');
+      if (!fine || reduce) return;
+      c.style.setProperty('--ry', ((x - .5) * 7).toFixed(2) + 'deg');
+      c.style.setProperty('--rx', ((.5 - y) * 7).toFixed(2) + 'deg');
+    });
+    c.addEventListener('pointerleave', () => { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
+  });
+
+  /* expanders */
+  $$('.more button').forEach(b => b.addEventListener('click', () => {
+    const open = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', open);
+    $('#' + b.getAttribute('aria-controls')).classList.toggle('open', open);
+  }));
+
+  /* calibration toy */
+  $('#calibBtn').addEventListener('click', () => {
+    const c = $('#calib'), done = c.classList.toggle('done');
+    $('#calibTxt').textContent = done ? 'within ±2% vs multimeter' : '8.5% vs multimeter';
+    $('#calibBtn').textContent = done ? 'Reset' : 'Calibrate';
+  });
+
+  /* EV compare */
+  const V = {
+    kart: { name: 'Electric Go-Kart, 2018', v: 24, w: 250, ah: 10, cost: 20000, foot: 'Top speed 20 km/h. Designed and built independently.' },
+    bike: { name: 'Deni Bikes, 2024', v: 48, w: 1000, ah: 20, cost: 40000, foot: 'Built from scratch at 16 and pitched on Shark Tank India Season 4.' }
+  };
+  const rows = [
+    ['Voltage', 'v', 48, x => x + ' V'],
+    ['Motor', 'w', 1000, x => x >= 1000 ? (x / 1000) + ' kW' : x + ' W'],
+    ['Battery', 'ah', 20, x => x + ' Ah'],
+    ['Build cost', 'cost', 40000, x => '₹' + x.toLocaleString('en-IN')]
+  ];
+  $('#bars').innerHTML = rows.map(([lab, k]) => `<div class="bar-row"><span class="lab">${lab}</span><div class="bar-track"><div class="bar-fill" data-k="${k}"></div></div><span class="val" data-k="${k}"></span></div>`).join('');
+  const segBtns = $$('.seg button'), segThumb = $('#segThumb');
+  const setV = key => {
+    const d = V[key];
+    rows.forEach(([, k, max, fmt]) => {
+      $(`.bar-fill[data-k="${k}"]`).style.width = (d[k] / max * 100) + '%';
+      $(`.val[data-k="${k}"]`).textContent = fmt(d[k]);
+    });
+    $('#evFoot').textContent = d.foot;
+    segBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.v === key));
+    const on = segBtns.find(b => b.dataset.v === key);
+    segThumb.style.left = on.offsetLeft + 'px'; segThumb.style.width = on.offsetWidth + 'px';
+  };
+  segBtns.forEach(b => b.addEventListener('click', () => setV(b.dataset.v)));
+  setV('bike');
+  addEventListener('resize', () => setV(segBtns.find(b => b.getAttribute('aria-pressed') === 'true').dataset.v));
+  document.fonts && document.fonts.ready.then(() => { setV(segBtns.find(b => b.getAttribute('aria-pressed') === 'true').dataset.v); onScroll(); });
+
+  /* skills */
+  const USES = {
+    'ESP32-S3': ['Smart Battery Monitor: logs cell voltages, current and temperatures over its own WiFi'],
+    'Arduino': ['Arduino all-terrain robot', 'Arduino memory game'],
+    'Raspberry Pi': ['AI Robot Teacher', 'Computer-vision advertising kiosk'],
+    'Python': ['Listed in his toolkit'],
+    'C++ (Arduino)': ['Arduino all-terrain robot', 'Arduino memory game'],
+    'OpenCV': ['AI Robot Teacher: scans students’ handwritten work'],
+    'OpenAI API': ['AI Robot Teacher: generates teaching material'],
+    'Make.com': ['Clinic appointment automation with an AI voice receptionist'],
+    'Vapi': ['Clinic appointment automation with an AI voice receptionist'],
+    'Lovable': ['Listed in his toolkit'],
+    'Supabase': ['Listed in his toolkit'],
+    'EV and battery prototyping': ['Deni Bikes: 48 V, 1 kW e-motorcycle', 'Electric Go-Kart: 24 V, 250 W', 'Smart Battery Monitor'],
+    'Sensor calibration': ['Smart Battery Monitor: 8.5% error down to within ±2%'],
+    'State estimation': ['Smart Battery Monitor: EKF SOC estimator with an equivalent circuit model'],
+    'Market research': ['Deni Bikes: demand for affordable electric mobility in India'],
+    'Investor pitching': ['Deni Bikes on Shark Tank India Season 4', 'Invited Judge, YEB 2025, BITS Pilani Goa']
+  };
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const chips = $$('.sk-chip'), swap = $('#skSwap'), cards = $$('#grid .card');
+  let sel = null, swapT;
+  const render = () => {
+    if (!sel) swap.innerHTML = '<div class="eyebrow">Where it’s used</div><h3>Choose a skill</h3><p class="hint">Start with ESP32-S3 or Investor pitching.</p>';
+    else swap.innerHTML = `<div class="eyebrow">Where it’s used</div><h3>${esc(sel)}</h3><ul>${USES[sel].map(u => `<li>${esc(u)}</li>`).join('')}</ul>`;
+  };
+  chips.forEach(ch => {
+    ch.setAttribute('aria-pressed', 'false');
+    ch.addEventListener('click', () => {
+      const t = ch.textContent.trim();
+      sel = sel === t ? null : t;
+      chips.forEach(c => c.setAttribute('aria-pressed', c.textContent.trim() === sel));
+      cards.forEach(c => {
+        const tags = (c.dataset.tags || '').split('|');
+        const hit = sel && tags.includes(sel);
+        c.classList.toggle('lit', !!hit);
+        c.classList.toggle('dim', !!sel && !hit);
+      });
+      clearTimeout(swapT);
+      if (reduce) { render(); return; }
+      swap.classList.add('out');
+      swapT = setTimeout(() => { render(); swap.classList.remove('out'); }, 110);
+    });
+  });
+
+  /* copy email */
+  const toast = $('#toast');
+  $('#copy').addEventListener('click', async () => {
+    const email = 'meet@ug30.mesaschool.co';
+    let ok = true;
+    try { await navigator.clipboard.writeText(email); } catch (e) { ok = false; }
+    toast.textContent = ok ? 'Email copied' : email;
+    toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1600);
+  });
+})();
+</script>
+</body>
+</html>
