@@ -257,8 +257,59 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
   opacity:0;transform:translate(-50%,8px) scale(.95);pointer-events:none;transition:opacity var(--fast) var(--ease),transform var(--fast) var(--ease)}
 .toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
 
+/* ---------- hero photo ---------- */
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,5vw,64px);align-items:center}
+.hero-grid h1{font-size:clamp(56px,9.5vw,132px)}
+.hero-photo{position:relative;margin:0;justify-self:end;width:min(100%,400px)}
+.hero-photo a{display:block;text-decoration:none;color:inherit}
+.ph{display:block;aspect-ratio:1;border-radius:28px;border:1.5px solid var(--ink);overflow:hidden;background:var(--bg-2);
+  box-shadow:6px 6px 0 var(--shadow);transform:rotate(2.5deg);transition:transform var(--med) var(--ease),box-shadow var(--med) var(--ease)}
+.ph img{display:block;width:100%;height:100%;object-fit:cover}
+.hero-photo a:hover .ph{transform:rotate(0deg) translate(-2px,-2px);box-shadow:9px 9px 0 var(--shadow)}
+.sticker{position:absolute;left:-22px;bottom:-22px;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:18px;
+  background:#0B0B0F;color:#fff;border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--shadow);transform:rotate(-5deg);
+  transition:transform var(--fast) var(--ease)}
+.hero-photo a:hover .sticker{transform:rotate(-2deg) scale(1.03)}
+.sticker img{width:48px;height:48px;border-radius:10px;display:block}
+.sticker small{display:block;font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:#FFF27A}
+.sticker b{display:block;font:800 15px/1.1 var(--display);letter-spacing:-.01em}
+
+/* ---------- shark tank ---------- */
+.st{padding:clamp(22px,4vw,44px);border-radius:32px;background:#0B0B0F;color:#F4F4F0;border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--accent);position:relative;overflow:hidden}
+.st::before{content:"";position:absolute;inset:auto -10% -55% auto;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(41,160,230,.28),transparent 65%);pointer-events:none}
+.st-head{position:relative;display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.st-logo{width:clamp(64px,9vw,92px);height:auto;aspect-ratio:1;border-radius:18px;border:1.5px solid rgba(255,255,255,.18);flex:none}
+.st .eyebrow{color:#FFF27A}
+.st h2{margin:6px 0 0;color:#fff;font-size:clamp(30px,5vw,56px)}
+.st-grid{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(20px,3vw,36px);align-items:center}
+.lite{all:unset;position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;cursor:pointer;background:#000;
+  border:1.5px solid rgba(255,255,255,.2)}
+.lite img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--med) var(--ease),opacity var(--med)}
+.lite:hover img{transform:scale(1.03);opacity:.85}
+.lite .play{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:#FFF27A;color:#0B0B0F;
+  display:grid;place-items:center;box-shadow:0 8px 30px rgba(0,0,0,.45);transition:transform var(--fast) var(--ease)}
+.lite:hover .play{transform:scale(1.08)}
+.lite:active .play{transform:scale(.95)}
+.lite .play svg{width:30px;height:30px;margin-left:4px}
+.lite .cap{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.7);font:700 12px var(--mono);color:#fff}
+.lite:focus-visible{outline:2px solid #FFF27A;outline-offset:3px}
+.vid{position:relative;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1.5px solid rgba(255,255,255,.2)}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.st-copy p{margin:0 0 16px;color:rgba(244,244,240,.75);font-size:16px}
+.st-copy p b{color:#fff}
+.verdict{margin:0 0 18px;padding:16px 18px;border-radius:16px;background:rgba(255,242,122,.1);border-left:4px solid #FFF27A;color:#fff;font-weight:600}
+.st-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.st-chips span{padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font:700 12px var(--mono);color:#fff}
+.st .btn{background:#FFF27A;color:#0B0B0F;border-color:#FFF27A;box-shadow:3px 3px 0 #29A0E6}
+.st .btn:hover{box-shadow:5px 5px 0 #29A0E6}
+.st .btn svg{width:18px;height:18px}
+
 /* ---------- responsive ---------- */
 @media (max-width:900px){
+  .st-grid{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{justify-self:start;width:min(78%,340px);margin:8px 0 12px 22px}
   .grid{grid-template-columns:1fr 1fr}
   .card,.card.half{grid-column:span 1}
   .card.wide{grid-column:span 2}
@@ -277,6 +328,9 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
   .ev{padding:20px}
   .links a{padding:7px 9px;font-size:13px}
   .batt-pct{display:none}
+  .lite .cap{display:none}
+  .lite .play{width:60px;height:60px;margin:-30px 0 0 -30px}
+  .sticker{left:-14px;bottom:-16px}
   .tl li{padding-left:48px}
   section{padding-top:72px}
   .hero{padding-bottom:40px}
@@ -299,6 +353,7 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
     <a class="logo" href="#top" aria-label="Back to top">MD</a>
     <div class="links" id="links">
       <span class="thumb" id="thumb" aria-hidden="true"></span>
+      <a href="#sharktank">Shark Tank</a>
       <a href="#builds">Builds</a>
       <a href="#journey">Journey</a>
       <a href="#skills">Skills</a>
@@ -317,13 +372,23 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
 
 <main id="top">
   <header class="wrap hero">
-    <span class="tag rv"><span class="dot"></span>Mesa School of Business · UG 2026–30</span>
-    <h1 class="rv" aria-label="Meet Deore"><span aria-hidden="true" id="name"></span></h1>
-    <p class="lede rv">Built an <b>electric motorcycle from scratch at 16</b>, pitched it on <b>Shark Tank India Season 4</b>, and now builds battery tech in Mesa's Idea Sprint Lab.</p>
-    <div class="hero-row rv">
-      <a class="btn pri" href="#builds">See the builds
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-      <a class="btn" href="#contact">Get in touch</a>
+    <div class="hero-grid">
+      <div>
+        <span class="tag rv"><span class="dot"></span>Mesa School of Business · UG 2026–30</span>
+        <h1 class="rv" aria-label="Meet Deore"><span aria-hidden="true" id="name"></span></h1>
+        <p class="lede rv">Built an <b>electric motorcycle from scratch at 16</b>, pitched it on <b>Shark Tank India Season 4</b>, and now builds battery tech in Mesa's Idea Sprint Lab.</p>
+        <div class="hero-row rv">
+          <a class="btn pri" href="#sharktank">Watch the pitch
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></a>
+          <a class="btn" href="#builds">See the builds</a>
+        </div>
+      </div>
+      <figure class="hero-photo rv">
+        <a href="#sharktank" aria-label="Meet on the Shark Tank India set. Jump to the pitch">
+          <span class="ph"><img src="assets/meet-deore.jpg" alt="Meet Deore standing in front of the Shark Tank India sign" width="678" height="678"></span>
+          <span class="sticker"><img src="assets/shark-tank-india-logo.jpg" alt="" width="48" height="48"><span><small>As seen on</small><b>Shark Tank India S4</b></span></span>
+        </a>
+      </figure>
     </div>
     <div class="stats">
       <div class="stat rv"><div class="n"><span data-count="16">0</span></div><div class="k">age when he built the Deni Bikes e-motorcycle</div></div>
@@ -336,6 +401,33 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
   <div class="marquee" aria-hidden="true">
     <div class="track" id="track"></div>
   </div>
+
+  <!-- SHARK TANK -->
+  <section id="sharktank" class="wrap">
+    <div class="st rv">
+      <div class="st-head">
+        <img class="st-logo" src="assets/shark-tank-india-logo.jpg" alt="Shark Tank India logo" width="92" height="92">
+        <div><div class="eyebrow">As seen on TV · 2024</div><h2>Shark Tank India, Season 4</h2></div>
+      </div>
+      <div class="st-grid">
+        <div id="vidSlot">
+          <button class="lite" type="button" id="lite" aria-label="Play the Deni Bikes full pitch on Shark Tank India">
+            <img src="assets/pitch-thumb.jpg" alt="" loading="lazy" width="1280" height="720">
+            <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            <span class="cap">Full pitch · official Shark Tank India channel</span>
+          </button>
+        </div>
+        <div class="st-copy">
+          <p>At 16, Meet pitched <b>Deni Bikes</b>, the electric motorcycle he designed and built from scratch, to the Sharks.</p>
+          <div class="verdict">The Sharks appreciated the product and advised him to complete his education before scaling.</div>
+          <div class="st-chips"><span>48 V · 1 kW motor</span><span>48 V 20 Ah battery</span><span>₹40,000 build</span></div>
+          <a class="btn" href="https://youtu.be/kOiLrHQdbM4" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.8 15.1V8.9L15.5 12l-5.7 3.1Z"/></svg>
+            Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- BUILDS -->
   <section id="builds" class="wrap">
@@ -374,7 +466,7 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
         <div class="det" id="d2"><div><ul>
           <li><b>48 V 1 kW motor</b> and <b>48 V 20 Ah battery</b>, built for ₹40,000.</li>
           <li>Ran <b>market research</b> on demand for affordable electric mobility in India.</li>
-          <li>The Sharks appreciated the product and advised completing education before scaling.</li>
+          <li>The Sharks appreciated the product and advised completing education before scaling. <a href="#sharktank"><b>Watch the pitch ↑</b></a></li>
         </ul></div></div>
         <div class="more"><button type="button" aria-expanded="false" aria-controls="d2">The story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
       </article>
@@ -516,6 +608,7 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
 <footer class="wrap">
   <span>© Meet Deore</span>
   <span class="mono">Mesa School of Business · UG 2030</span>
+  <span style="flex-basis:100%">Shark Tank India name and logo belong to their owners and are shown only to reference Meet's appearance on the show.</span>
 </footer>
 <div class="toast" id="toast" role="status">Email copied</div>
 
@@ -709,6 +802,11 @@ footer{padding:36px 0 48px;display:flex;flex-wrap:wrap;justify-content:space-bet
       swap.classList.add('out');
       swapT = setTimeout(() => { render(); swap.classList.remove('out'); }, 110);
     });
+  });
+
+  /* shark tank video: load the player only when asked */
+  $('#lite').addEventListener('click', () => {
+    $('#vidSlot').innerHTML = '<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/kOiLrHQdbM4?autoplay=1&rel=0" title="Deni Bikes full pitch, Shark Tank India Season 4" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';
   });
 
   /* copy email */
